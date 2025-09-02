@@ -160,7 +160,7 @@ export default function Page() {
     {/* Mobile Toggle */}
     <button
       className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-300"
-      onClick={() => setMobileOpen(true)}
+      onClick={() => setMobileOpen((v) => !v)}
       aria-expanded={mobileOpen}
       aria-controls="mobile-nav"
       aria-label="Menü öffnen"
@@ -173,6 +173,11 @@ export default function Page() {
 
         {/* >>> hier bleibt dein ganzer restlicher Content <<< */}
       </motion.div>
+
+      {/* HIER: Drawer/Overlay über der Seite */}
+    <MobileMenu open={mobileOpen} onNavigate={scrollTo} />
+  </>
+);
 
 
 
