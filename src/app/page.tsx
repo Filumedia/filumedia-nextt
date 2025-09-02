@@ -39,38 +39,56 @@ export default function Page() {
     <div className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-xl bg-slate-900" />
-            <span className="font-semibold tracking-wide">FILUMEDIA</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
-            {[
-              ["Leistungen", "services"],
-              ["Projekte", "work"],
-              ["Partner", "partners"],
-              ["Ablauf", "process"],
-              ["Preise", "pricing"],
-              ["FAQ", "faq"],
-              ["Kontakt", "contact"],
-            ].map(([label, id]) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className="hover:text-slate-900 transition"
-              >
-                {label}
-              </button>
-            ))}
-            <a
-              href="#quiz"
-              className={`rounded-xl px-3 py-2 text-white bg-${accent} hover:bg-${accentHover} transition`}
-            >
-              Projekt-Quiz starten
-            </a>
-          </nav>
-        </div>
-      </header>
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    {/* Logo */}
+    <div className="flex items-center gap-3">
+      <div className="h-7 w-7 rounded-xl bg-slate-900" />
+      <span className="font-semibold tracking-wide">FILUMEDIA</span>
+    </div>
+
+    {/* Desktop Nav */}
+    <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
+      {[
+        ["Leistungen", "services"],
+        ["Projekte", "work"],
+        ["Partner", "partners"],
+        ["Ablauf", "process"],
+        ["Preise", "pricing"],
+        ["FAQ", "faq"],
+        ["Kontakt", "contact"],
+      ].map(([label, id]) => (
+        <button
+          key={id}
+          onClick={() => scrollTo(id)}
+          className="hover:text-slate-900 transition"
+        >
+          {label}
+        </button>
+      ))}
+      <a
+        href="#quiz"
+        className="rounded-xl px-3 py-2 text-white bg-indigo-600 hover:bg-indigo-700 transition"
+      >
+        Projekt-Check starten
+      </a>
+    </nav>
+
+    {/* Mobile Toggle */}
+    <button
+      className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-300"
+      onClick={() => setMobileOpen((v) => !v)}
+      aria-expanded={mobileOpen}
+      aria-controls="mobile-nav"
+      aria-label="Menü öffnen"
+    >
+      {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+    </button>
+  </div>
+
+  {/* Mobile Menu Panel */}
+  <MobileMenu open={mobileOpen} onNavigate={scrollTo} />
+</header>
+
 
       {/* Hero */}
       <section className={`relative overflow-hidden border-b border-slate-200 bg-gradient-to-b ${softBg}`}>
