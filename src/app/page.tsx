@@ -182,7 +182,7 @@ export default function Page() {
               transition={{ duration: 0.5 }}
               className="font-bold leading-tight text-[clamp(2.25rem,6vw,3.75rem)]"
             >
-              Klar. Schnell. <span className="text-indigo-700">Konvertierend.</span>
+              Klar. Schnell. <span className="text-indigo-700">Konvertierendd.</span>
             </motion.h1>
             <p className="mt-4 text-slate-600 max-w-xl">
               Websites, die Vertrauen aufbauen und Termine generieren – perfekt für
