@@ -130,7 +130,44 @@ export default function Page() {
               <div className="h-7 w-7 rounded-xl bg-slate-900" />
               <span className="font-semibold tracking-wide">FILUMEDIA</span>
             </div>
-            ...
+                {/* Desktop Nav */}
+    <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
+      {[
+        ["Leistungen", "services"],
+        ["Projekte", "work"],
+        ["Partner", "partners"],
+        ["Ablauf", "process"],
+        ["Preise", "pricing"],
+        ["FAQ", "faq"],
+        ["Kontakt", "contact"],
+      ].map(([label, id]) => (
+        <button
+          key={id}
+          onClick={() => scrollTo(id)}
+          className="hover:text-slate-900 transition"
+        >
+          {label}
+        </button>
+      ))}
+      <a
+        href="#quiz"
+        className={`rounded-xl px-3 py-2 text-white ${ACCENT_BTN} transition`}
+      >
+        Projekt-Check starten
+      </a>
+    </nav>
+
+    {/* Mobile Toggle */}
+    <button
+      className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-300"
+      onClick={() => setMobileOpen(true)}
+      aria-expanded={mobileOpen}
+      aria-controls="mobile-nav"
+      aria-label="Menü öffnen"
+    >
+      {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+    </button>
+
           </div>
         </header>
 
