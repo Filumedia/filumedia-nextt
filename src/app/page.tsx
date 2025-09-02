@@ -54,7 +54,7 @@ function MobileMenu({
         <motion.aside
           key="drawer"
           id="mobile-nav"
-          className="fixed right-0 top-0 h-screen w-80 max-w-[85vw] bg-white md:hidden shadow-xl border-l border-slate-200"
+          className="fixed right-0 top-0 z-50 h-screen w-80 max-w-[85vw] bg-white md:hidden shadow-xl border-l border-slate-200"
           initial={{ x: DRAWER_W }}
           animate={{ x: 0 }}
           exit={{ x: DRAWER_W }}
