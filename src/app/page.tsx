@@ -22,8 +22,18 @@ const accentHover = "indigo-700";
 const softBg = "from-indigo-50 to-white";
 
 export default function Page() {
-  const scrollTo = (id: string) =>
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  const scrollTo = (id: string) => {
+    setMobileOpen(false); // Menü schließen, wenn man klickt
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
 
   return (
     <div className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white">
