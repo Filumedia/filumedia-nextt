@@ -174,14 +174,7 @@ export default function Page() {
         {/* >>> hier bleibt dein ganzer restlicher Content <<< */}
       </motion.div>
 
-      {/* Drawer über der Seite */}
-      <MobileMenu open={mobileOpen} onNavigate={scrollTo} />
-    </>
-  );
-}
 
-  
-</header>
 
 
       {/* Hero */}
