@@ -159,7 +159,7 @@ export default function Page() {
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="#work"
-                className={`rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover} inline-flex items-center`}
+                className={`rounded-xl px-4 py-2 text-white ${ACCENT_BTN} inline-flex items-center`}
               >
                 Referenzen ansehen <ArrowRight className="ml-2 h-4 w-4" />
               </a>
@@ -244,7 +244,7 @@ export default function Page() {
       <section id="work" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
         <div className="flex items-end justify-between gap-3 mb-6">
           <h2 className="text-2xl md:text-3xl font-semibold">Projekte</h2>
-          <a href="#quiz" className={`rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover}`}>Projekt anfragen</a>
+          <a href="#quiz" className={`rounded-xl px-4 py-2 text-white ${ACCENT_BTN}`}>Projekt anfragen</a>
         </div>
         <ProjectGrid />
       </section>
@@ -370,7 +370,7 @@ export default function Page() {
   />
   <button
     type="submit"
-    className={`w-full rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover}`}
+    className={`w-full rounded-xl px-4 py-2 text-white ${ACCENT_BTN}`}
   >
     Absenden
   </button>
@@ -394,7 +394,7 @@ export default function Page() {
       {/* Floating CTA */}
       <a
         href="#quiz"
-        className={`fixed right-4 bottom-4 md:right-6 md:bottom-6 px-4 py-3 rounded-full shadow-lg border border-slate-200 bg-${accent} hover:bg-${accentHover} text-white inline-flex items-center gap-2`}
+        className={`fixed right-4 bottom-4 md:right-6 md:bottom-6 px-4 py-3 rounded-full shadow-lg border border-slate-200 ${ACCENT_BTN} text-white inline-flex items-center gap-2`}
       >
         <CalendarDays className="h-4 w-4" />
         Termin buchen
@@ -623,7 +623,7 @@ function Quiz() {
         {step < 4 ? (
           <button
             onClick={next}
-            className={`px-4 py-2 rounded-xl text-white bg-${accent} hover:bg-${accentHover} disabled:opacity-40`}
+            className={`px-4 py-2 rounded-xl text-white ${ACCENT_BTN} disabled:opacity-40`}
             disabled={
               (step === 1 && !a.type) ||
               (step === 2 && !a.purpose) ||
@@ -635,7 +635,7 @@ function Quiz() {
         ) : (
           <button
             onClick={sendLead}
-            className={`px-4 py-2 rounded-xl text-white bg-${accent} hover:bg-${accentHover} disabled:opacity-40`}
+            className={`px-4 py-2 rounded-xl text-white ${ACCENT_BTN} disabled:opacity-40`}
             disabled={!a.name || !a.email || loading}
           >
             {loading ? "Sende…" : "Anfrage senden"}
