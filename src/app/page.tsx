@@ -245,12 +245,59 @@ export default function Page() {
 
           <div className="rounded-2xl border border-slate-200 p-6">
             <div className="font-medium mb-3">Kontaktformular</div>
-            <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); alert("Danke! Ich melde mich."); }}>
-              <input placeholder="Dein Name" className="w-full border border-slate-300 rounded-lg px-3 py-2" />
-              <input placeholder="E-Mail" className="w-full border border-slate-300 rounded-lg px-3 py-2" />
-              <textarea placeholder="Kurz dein Projekt…" className="w-full border border-slate-300 rounded-lg px-3 py-2 min-h-[120px]" />
-              <button className={`w-full rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover}`}>Absenden</button>
-            </form>
+            <form
+  className="space-y-3"
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const payload = {
+      _subject: "Kontaktformular (Filumedia)",
+      name: (form.elements.namedItem("name") as HTMLInputElement)?.value,
+      email: (form.elements.namedItem("email") as HTMLInputElement)?.value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement)?.value,
+    };
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Formspree error");
+      alert("Danke! Deine Nachricht wurde gesendet.");
+      form.reset();
+    } catch (err) {
+      alert("Konnte nicht senden. Schreib bitte kurz an " + OWNER_EMAIL);
+    }
+  }}
+>
+  <input
+    name="name"
+    placeholder="Dein Name"
+    className="w-full border border-slate-300 rounded-lg px-3 py-2"
+    required
+  />
+  <input
+    name="email"
+    type="email"
+    placeholder="E-Mail"
+    className="w-full border border-slate-300 rounded-lg px-3 py-2"
+    required
+  />
+  <textarea
+    name="message"
+    placeholder="Kurz dein Projekt…"
+    className="w-full border border-slate-300 rounded-lg px-3 py-2 min-h-[120px]"
+    required
+  />
+  <button
+    type="submit"
+    className={`w-full rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover}`}
+  >
+    Absenden
+  </button>
+</form>
+
           </div>
         </div>
       </section>
