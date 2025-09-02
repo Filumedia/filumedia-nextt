@@ -37,17 +37,44 @@ function MobileMenu({
 
   return (
     <AnimatePresence>
+      {/* Overlay (klick schließt) */}
       {open && (
         <motion.div
+          key="overlay"
+          className="fixed inset-0 bg-black/30 backdrop-blur-[2px] md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => onNavigate("")} // schließt, weil Page setMobileOpen(false) in scrollTo macht
+        />
+      )}
+
+      {/* Drawer von rechts */}
+      {open && (
+        <motion.aside
+          key="drawer"
           id="mobile-nav"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur"
+          className="fixed right-0 top-0 h-screen w-80 max-w-[85vw] bg-white md:hidden shadow-xl border-l border-slate-200"
+          initial={{ x: DRAWER_W }}
+          animate={{ x: 0 }}
+          exit={{ x: DRAWER_W }}
+          transition={{ type: "tween", duration: 0.28 }}
+          aria-modal="true"
+          role="dialog"
         >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex flex-col gap-1">
+          <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
+            <span className="font-semibold">Menü</span>
+            <button
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300"
+              onClick={() => onNavigate("")}
+              aria-label="Menü schließen"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          <div className="px-4 py-3">
+            <div className="flex flex-col">
               {links.map(([label, id]) => (
                 <button
                   key={id}
@@ -61,17 +88,18 @@ function MobileMenu({
               <a
                 href="#quiz"
                 onClick={() => onNavigate("quiz")}
-                className="mt-2 inline-flex items-center justify-center rounded-xl px-4 py-3 text-white bg-indigo-600 hover:bg-indigo-700"
+                className={`mt-2 inline-flex items-center justify-center rounded-xl px-4 py-3 text-white ${ACCENT_BTN}`}
               >
                 Projekt-Check starten
               </a>
             </div>
           </div>
-        </motion.div>
+        </motion.aside>
       )}
     </AnimatePresence>
   );
 }
+
 
 export default function Page() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -82,20 +110,38 @@ export default function Page() {
   }, [mobileOpen]);
 
   const scrollTo = (id: string) => {
-    setMobileOpen(false); // Menü schließen, wenn man klickt
+    setMobileOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <div className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
-  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    {/* Logo */}
-    <div className="flex items-center gap-3">
-      <div className="h-7 w-7 rounded-xl bg-slate-900" />
-      <span className="font-semibold tracking-wide">FILUMEDIA</span>
-    </div>
+    <>
+      {/* Alles was deine Seite enthält → in motion.div */}
+      <motion.div
+        animate={mobileOpen ? { x: -320 } : { x: 0 }} // -320px = Drawer-Breite
+        transition={{ type: "tween", duration: 0.28 }}
+        className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white will-change-transform"
+      >
+        {/* Header */}
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="h-7 w-7 rounded-xl bg-slate-900" />
+              <span className="font-semibold tracking-wide">FILUMEDIA</span>
+            </div>
+            ...
+          </div>
+        </header>
+
+        {/* >>> hier bleibt dein ganzer restlicher Content <<< */}
+      </motion.div>
+
+      {/* Drawer über der Seite */}
+      <MobileMenu open={mobileOpen} onNavigate={scrollTo} />
+    </>
+  );
+}
 
     {/* Desktop Nav */}
     <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
