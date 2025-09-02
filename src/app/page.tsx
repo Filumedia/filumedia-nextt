@@ -5,30 +5,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-
-/** ======= Einstellungen (bitte anpassen) ======= */
-const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
-const FORMSPREE_ID = "xdkllwek";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
-/** ============================================== */
-
-const accent = "indigo-600";        // Akzentfarbe
-const accentHover = "indigo-700";
-const softBg = "from-indigo-50 to-white";
-
-export default function Page() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
-
-  const scrollTo = (id: string) => {
-    setMobileOpen(false); // Menü schließen, wenn man klickt
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  
 function MobileMenu({
   open,
   onNavigate,
@@ -84,7 +60,27 @@ function MobileMenu({
   );
 }
 
+/** ======= Einstellungen (bitte anpassen) ======= */
+const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
+const FORMSPREE_ID = "xdkllwek";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
+/** ============================================== */
 
+const accent = "indigo-600";        // Akzentfarbe
+const accentHover = "indigo-700";
+const softBg = "from-indigo-50 to-white";
+
+export default function Page() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  const scrollTo = (id: string) => {
+    setMobileOpen(false); // Menü schließen, wenn man klickt
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white">
