@@ -1,16 +1,10 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
-import { ArrowRight, CheckCircle2, Globe, CalendarDays, Mail, Building2, Menu, X } from "lucide-react";
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import {
-  ArrowRight,
-  CheckCircle2,
-  Globe,
-  CalendarDays,
-  Mail,
-  Building2,
+  ArrowRight, CheckCircle2, Globe, CalendarDays, Mail, Building2, Menu, X
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 /** ======= Einstellungen (bitte anpassen) ======= */
 const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
@@ -34,8 +28,7 @@ export default function Page() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  import { motion, AnimatePresence } from "framer-motion";
-
+  
 function MobileMenu({
   open,
   onNavigate,
