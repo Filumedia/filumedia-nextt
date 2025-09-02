@@ -34,6 +34,64 @@ export default function Page() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  import { motion, AnimatePresence } from "framer-motion";
+
+function MobileMenu({
+  open,
+  onNavigate,
+}: {
+  open: boolean;
+  onNavigate: (id: string) => void;
+}) {
+  const links: [string, string][] = [
+    ["Leistungen", "services"],
+    ["Projekte", "work"],
+    ["Partner", "partners"],
+    ["Ablauf", "process"],
+    ["Preise", "pricing"],
+    ["FAQ", "faq"],
+    ["Kontakt", "contact"],
+  ];
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          id="mobile-nav"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur"
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+            <div className="flex flex-col gap-1">
+              {links.map(([label, id]) => (
+                <button
+                  key={id}
+                  onClick={() => onNavigate(id)}
+                  className="text-left px-2 py-3 rounded-lg hover:bg-slate-50 text-slate-700"
+                >
+                  {label}
+                </button>
+              ))}
+
+              <a
+                href="#quiz"
+                onClick={() => onNavigate("quiz")}
+                className="mt-2 inline-flex items-center justify-center rounded-xl px-4 py-3 text-white bg-indigo-600 hover:bg-indigo-700"
+              >
+                Projekt-Check starten
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+
 
   return (
     <div className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white">
