@@ -5,6 +5,15 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+/** ======= Einstellungen (bitte anpassen) ======= */
+const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
+const FORMSPREE_ID = "xdkllwek";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
+/** ============================================== */
+
+const accent = "indigo-600";        // Akzentfarbe
+const accentHover = "indigo-700";
+const softBg = "from-indigo-50 to-white";
+
 function MobileMenu({
   open,
   onNavigate,
@@ -59,15 +68,6 @@ function MobileMenu({
     </AnimatePresence>
   );
 }
-
-/** ======= Einstellungen (bitte anpassen) ======= */
-const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
-const FORMSPREE_ID = "xdkllwek";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
-/** ============================================== */
-
-const accent = "indigo-600";        // Akzentfarbe
-const accentHover = "indigo-700";
-const softBg = "from-indigo-50 to-white";
 
 export default function Page() {
   const [mobileOpen, setMobileOpen] = useState(false);
