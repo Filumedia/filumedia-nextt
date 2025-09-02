@@ -1,5 +1,6 @@
 "use client";
-
+import { useMemo, useState, useEffect } from "react";
+import { ArrowRight, CheckCircle2, Globe, CalendarDays, Mail, Building2, Menu, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
