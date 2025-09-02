@@ -15,6 +15,8 @@ const accentHover = "indigo-700";
 const softBg = "from-indigo-50 to-white";
 const ACCENT_BTN = "bg-indigo-600 hover:bg-indigo-700";
 const SOFT_BG = "from-indigo-50 to-white";
+const DRAWER_W = 320; // Breite des Drawers in px (w-80 = 20rem = 320px)
+
 
 function MobileMenu({
   open,
