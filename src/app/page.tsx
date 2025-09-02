@@ -13,7 +13,7 @@ import {
 
 /** ======= Einstellungen (bitte anpassen) ======= */
 const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
-const FORMSPREE_ID = "";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
+const FORMSPREE_ID = "xdkllwek";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
 /** ============================================== */
 
 const accent = "indigo-600";        // Akzentfarbe
