@@ -13,6 +13,8 @@ const FORMSPREE_ID = "xdkllwek";                             // Optional: Formsp
 const accent = "indigo-600";        // Akzentfarbe
 const accentHover = "indigo-700";
 const softBg = "from-indigo-50 to-white";
+const ACCENT_BTN = "bg-indigo-600 hover:bg-indigo-700";
+const SOFT_BG = "from-indigo-50 to-white";
 
 function MobileMenu({
   open,
