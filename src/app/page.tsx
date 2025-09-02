@@ -171,18 +171,7 @@ export default function Page() {
           </div>
         </header>
 
-        {/* >>> hier bleibt dein ganzer restlicher Content <<< */}
-      </motion.div>
-
-      {/* HIER: Drawer/Overlay über der Seite */}
-    <MobileMenu open={mobileOpen} onNavigate={scrollTo} />
-  </>
-);
-
-
-
-
-      {/* Hero */}
+         {/* Hero */}
       <section className={`relative overflow-hidden border-b border-slate-200 ${SOFT_BG}`}>
         <div className="absolute -top-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl"></div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid md:grid-cols-12 gap-10 items-center">
@@ -445,6 +434,16 @@ export default function Page() {
     </div>
   );
 }
+
+        {/* >>> hier bleibt dein ganzer restlicher Content <<< */}
+      </motion.div>
+      
+      {/* HIER: Drawer/Overlay über der Seite */}
+    <MobileMenu open={mobileOpen} onNavigate={scrollTo} />
+  </>
+);
+
+
 
 /* ---------- kleine UI-Bausteine ---------- */
 
