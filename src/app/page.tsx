@@ -10,9 +10,7 @@ const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das 
 const FORMSPREE_ID = "xdkllwek";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
 /** ============================================== */
 
-const accent = "indigo-600";        // Akzentfarbe
-const accentHover = "indigo-700";
-const softBg = "from-indigo-50 to-white";
+
 const ACCENT_BTN = "bg-indigo-600 hover:bg-indigo-700";
 const SOFT_BG = "from-indigo-50 to-white";
 const DRAWER_W = 320; // Breite des Drawers in px (w-80 = 20rem = 320px)
