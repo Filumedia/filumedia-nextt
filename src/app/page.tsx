@@ -1,210 +1,558 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Globe } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Globe,
+  CalendarDays,
+  Mail,
+  Building2,
+} from "lucide-react";
 
-const beige = "#E8DFCF";
-const charcoal = "#111111";
+/** ======= Einstellungen (bitte anpassen) ======= */
+const OWNER_EMAIL = "filuma@icloud.com";            // Fallback-E-Mail für das Quiz
+const FORMSPREE_ID = "";                             // Optional: Formspree ID einsetzen z.B. "xgebrjyo"
+/** ============================================== */
+
+const accent = "indigo-600";        // Akzentfarbe
+const accentHover = "indigo-700";
+const softBg = "from-indigo-50 to-white";
 
 export default function Page() {
-  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <div>
+    <div className="bg-white text-slate-900 selection:bg-slate-900 selection:text-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur border-b border-neutral-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-xl bg-beige shadow-inset" />
-            <span className="font-medium tracking-wide text-sm sm:text-base">FILUMEDIA</span>
+            <div className="h-7 w-7 rounded-xl bg-slate-900" />
+            <span className="font-semibold tracking-wide">FILUMEDIA</span>
           </div>
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-sm text-neutral-600">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
             {[
               ["Leistungen", "services"],
               ["Projekte", "work"],
+              ["Partner", "partners"],
               ["Ablauf", "process"],
               ["Preise", "pricing"],
               ["FAQ", "faq"],
               ["Kontakt", "contact"],
             ].map(([label, id]) => (
-              <button key={id} onClick={() => scrollTo(id)} className="hover:text-neutral-900 transition">
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                className="hover:text-slate-900 transition"
+              >
                 {label}
               </button>
             ))}
-            <a href="#contact" className="rounded-xl text-white px-3 py-2 bg-charcoal">Kostenlos starten</a>
+            <a
+              href="#quiz"
+              className={`rounded-xl px-3 py-2 text-white bg-${accent} hover:bg-${accentHover} transition`}
+            >
+              Projekt-Quiz starten
+            </a>
           </nav>
         </div>
       </header>
 
       {/* Hero */}
-      <section className="relative border-b border-neutral-200">
-        <div className="absolute inset-0" style={{ background: "radial-gradient(60% 60% at 50% 0%, #f8f6f2 0%, transparent 60%)" }} />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid md:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <section className={`relative overflow-hidden border-b border-slate-200 bg-gradient-to-b ${softBg}`}>
+        <div className="absolute -top-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl"></div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid md:grid-cols-12 gap-10 items-center">
           <div className="md:col-span-7">
-            <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5 }}
-              className="font-semibold leading-tight text-[clamp(2rem,6vw,3.5rem)]">
-              Websites, die <span className="underline decoration-[3px] underline-offset-4" style={{ textDecorationColor: beige }}>vertrauen</span> & verkaufen.
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="font-bold leading-tight text-[clamp(2.25rem,6vw,3.75rem)]"
+            >
+              Klar. Schnell. <span className="text-indigo-700">Konvertierend.</span>
             </motion.h1>
-            <p className="mt-4 sm:mt-6 text-neutral-600 max-w-xl text-[15px] sm:text-[16px]">
-              Minimalistisch, schnell und klar. Fokus auf Nutzerführung, Terminbuchung & messbare Ergebnisse.
+            <p className="mt-4 text-slate-600 max-w-xl">
+              Websites, die Vertrauen aufbauen und Termine generieren – perfekt für
+              Dienstleister, Praxen & Marken. Minimaler Lärm, maximale Wirkung.
             </p>
-            <div className="mt-6 sm:mt-8 flex flex-wrap gap-3">
-              <a href="#work" className="rounded-xl px-4 sm:px-5 py-2 bg-charcoal text-white inline-flex items-center">
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="#work"
+                className={`rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover} inline-flex items-center`}
+              >
                 Referenzen ansehen <ArrowRight className="ml-2 h-4 w-4" />
               </a>
-              <a href="#pricing" className="rounded-xl px-4 sm:px-5 py-2 border border-neutral-300">Pakete & Preise</a>
+              <a
+                href="#quiz"
+                className="rounded-xl px-4 py-2 border border-slate-300"
+              >
+                Projekt-Quiz starten
+              </a>
             </div>
-            <ul className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-sm text-neutral-700 max-w-lg">
+
+            <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700 max-w-xl">
               {[
-                "Klares Design ohne Ablenkung",
-                "Termin-CTA & Conversion-Flows",
-                "SEO-Basics & schnelle Ladezeiten",
-                "Rechtstexte & DSGVO-Hinweise",
+                "Fokussierte UX & starke Calls-to-Action",
+                "SEO-Basics & exzellente Performance",
+                "Rechtstexte/DSGVO vorbereitet",
+                "Sauberer Code, wartungsarm",
               ].map((t, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4" style={{ color: charcoal }} /> {t}
+                  <CheckCircle2 className="h-4 w-4 text-slate-900" />
+                  {t}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="md:col-span-5">
-            <div className="rounded-2xl border border-neutral-200 bg-gradient-to-b from-white to-[#faf8f4] p-5">
-              <div className="font-medium mb-3">Marken-Site Vorschau</div>
-              <img src="https://images.unsplash.com/photo-1492138786289-d35ea832da43?q=80&w=1200&auto=format&fit=crop" alt="Preview" className="rounded-xl" />
-              <p className="text-sm text-neutral-700 mt-3">Eleganter Aufbau mit klarer Hierarchie und viel Weißraum.</p>
-            </div>
-          </div>
-        </div>
 
-        {/* marquee */}
-        <div className="border-t border-neutral-200">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-hidden">
-            <div className="animate-[marquee_30s_linear_infinite] whitespace-nowrap text-neutral-500 text-xs [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <span key={i} className="inline-flex items-center gap-2 mx-6 opacity-70">
-                  <Globe className="h-3.5 w-3.5" /> performant • zugänglich • markant
-                </span>
-              ))}
+          <div className="md:col-span-5">
+            <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5">
+              <div className="font-medium mb-3 flex items-center gap-2">
+                <Globe className="h-5 w-5" /> Live-Vorschau
+              </div>
+              <img
+                className="rounded-xl aspect-[16/10] w-full object-cover"
+                src="https://images.unsplash.com/photo-1529336953121-497c3c3ab3ac?q=80&w=1600&auto=format&fit=crop"
+                alt="Preview"
+              />
+              <p className="text-sm text-slate-600 mt-3">
+                Neues, kühles Look-&-Feel mit Indigo-Akzenten und viel Weißraum.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Partner Logos */}
+      <section id="partners" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+        <div className="text-sm uppercase tracking-wider text-slate-500 mb-5">Vertrauen von</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 items-center">
+          {["LumaCare", "Technohaus", "Nordtax", "Boutiqua", "Praxxis", "Stellwerk"].map((name) => (
+            <Logo key={name} label={name} />
+          ))}
+        </div>
+      </section>
+
       {/* Services */}
-      <section id="services" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+      <section id="services" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 border-t border-b border-slate-200">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-8">Leistungen</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { title: "One-Pager Essential", desc: "Schneller Start: alles auf einer Seite." },
-            { title: "Business Site", desc: "Mehr Seiten, mehr Wirkung – inkl. SEO-Basics." },
-            { title: "Care & Updates", desc: "Monatliche Pflege, Backups & Performance-Checks." },
-          ].map((s, i) => (
-            <div key={i} className="rounded-2xl border border-neutral-200 bg-white p-6">
-              <h3 className="font-semibold">{s.title}</h3>
-              <p className="text-neutral-600 text-sm mt-3">{s.desc}</p>
-            </div>
+            {
+              title: "One-Pager",
+              desc: "Klare Story auf einer Seite. Schnell online, perfekt strukturiert.",
+              points: ["Hero, Nutzen, Kontakt", "Termin-CTA integriert", "Impressum/Datenschutz"],
+            },
+            {
+              title: "Business Website",
+              desc: "Mehr Seiten & Inhalt – SEO-ready und ausbaufähig.",
+              points: ["3–6 Seiten", "Kontakt-/Booking-Flows", "On-Page SEO"],
+            },
+            {
+              title: "Care & Updates",
+              desc: "Rundum-Sorglos-Paket. Sicherheit, Backups & kleine Änderungen.",
+              points: ["Updates/Backups", "Speed & Security", "Monatlich kündbar"],
+            },
+          ].map((s) => (
+            <Card key={s.title} title={s.title} desc={s.desc} points={s.points} />
           ))}
         </div>
       </section>
 
       {/* Work */}
-      <section id="work" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 border-t border-b border-neutral-200">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6 sm:mb-8">
-          <h2 className="text-2xl md:text-3xl font-semibold">Projekte & Beispiele</h2>
-          <a href="#contact" className="rounded-xl self-start sm:self-auto px-4 sm:px-5 py-2 bg-charcoal text-white">Projekt anfragen</a>
+      <section id="work" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <div className="flex items-end justify-between gap-3 mb-6">
+          <h2 className="text-2xl md:text-3xl font-semibold">Projekte</h2>
+          <a href="#quiz" className={`rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover}`}>Projekt anfragen</a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <ProjectGrid />
+      </section>
+
+      {/* Process */}
+      <section id="process" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 border-t border-b border-slate-200">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6">So läuft’s</h2>
+        <ol className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
           {[
-            { title: "Aesthetic Praxis", img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1400&auto=format&fit=crop" },
-            { title: "Technik & Gewerbe", img: "https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1400&auto=format&fit=crop" },
-            { title: "Boutique & Retail", img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1400&auto=format&fit=crop" },
-          ].map((p, i) => (
-            <div key={i} className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50">
-              <img loading="lazy" decoding="async" src={p.img} alt={p.title} className="h-56 sm:h-60 md:h-64 w-full object-cover transition group-hover:scale-[1.02]" />
-              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-center justify-between bg-gradient-to-t from-white via-white/80 to-transparent">
-                <span className="font-medium text-sm sm:text-base">{p.title}</span>
-                <ArrowRight className="h-5 w-5" style={{ color: charcoal }} />
-              </div>
-            </div>
+            ["Kennenlernen", "15-Min Call: Ziele, Stil, Inhalte."],
+            ["Design", "Entwurf minimal & markant."],
+            ["Build", "Sauberer Code, SEO-Basics, Speed."],
+            ["Launch", "Go-Live, Tracking, Betreuung."],
+          ].map(([title, desc], i) => (
+            <li key={i} className="p-5 rounded-2xl border border-slate-200 bg-white">
+              <div className="text-xs text-slate-500">Schritt {i + 1}</div>
+              <div className="font-medium mt-1">{title}</div>
+              <p className="mt-1 text-slate-600">{desc}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 border-t border-b border-neutral-200">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6 sm:mb-8">Transparente Pakete</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+      <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6">Transparente Pakete</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { name: "One-Pager", price: "ab 690€", features: ["1 Seite • 3 Sektionen", "Kontakt & Termin-CTA", "Impressum/Datenschutz"], badge: "Schnellstart" },
-            { name: "Business", price: "ab 1.690€", features: ["3–6 Seiten", "Booking & Leads", "On-Page SEO"], badge: "Beliebt" },
-            { name: "Care", price: "ab 79€/Monat", features: ["Updates & Backups", "Speed & Security", "Kleine Änderungen"], badge: "Wartung" },
-          ].map((p, i) => (
-            <div key={i} className="rounded-2xl border border-neutral-200 p-6">
-              <div className="flex items-center justify-between text-base sm:text-lg">
-                <span>{p.name}</span>
-                <span className="text-xs sm:text-sm px-2 py-1 rounded-full border border-neutral-300 bg-[#faf8f4]">{p.badge}</span>
-              </div>
-              <div className="text-xl sm:text-2xl font-semibold text-charcoal mt-2">{p.price}</div>
-              <ul className="mt-3 sm:mt-4 space-y-2 text-sm text-neutral-800 list-disc list-inside">
-                {p.features.map((f, idx) => <li key={idx}>{f}</li>)}
-              </ul>
-              <a href="#contact" className="mt-5 sm:mt-6 w-full rounded-xl px-4 sm:px-5 py-2 bg-charcoal text-white inline-block text-center">Anfragen</a>
-            </div>
+            ["One-Pager", "ab 690€", ["1 Seite • 3 Sektionen", "Kontakt & Termin-CTA", "Impressum/Datenschutz"]],
+            ["Business", "ab 1.690€", ["3–6 Seiten", "Booking & Leads", "On-Page SEO"]],
+            ["Care", "ab 79€/Monat", ["Updates & Backups", "Speed & Security", "Kleine Änderungen"]],
+          ].map(([name, price, features]) => (
+            <PriceCard key={name as string} name={name as string} price={price as string} features={features as string[]} />
           ))}
         </div>
       </section>
 
-      {/* FAQ (native <details>) */}
-      <section id="faq" className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4 sm:mb-6">Häufige Fragen</h2>
+      {/* FAQ */}
+      <section id="faq" className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 border-t border-b border-slate-200">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-4">FAQ</h2>
         {[
-          ["Wie schnell ist meine Website fertig?", "Ein One-Pager oft in 7–10 Tagen. Mehrseitige Seiten je nach Umfang 2–4 Wochen."],
-          ["Welche Tools/Builder nutzt du?", "Tailwind/React oder Wix Studio – je nach Projekt, Geschwindigkeit & Budget."],
-          ["Kümmert ihr euch um Rechtstexte?", "Wir integrieren Impressum & Datenschutz. Rechtstexte selbst oder via Generator/Anwalt."]
+          ["Wie schnell ist meine Website fertig?", "One-Pager oft in 7–10 Tagen. Mehrseitige Seiten 2–4 Wochen."],
+          ["Welche Tools nutzt du?", "Next.js/Tailwind oder statisch – je nach Budget/Speed."],
+          ["Rechtstexte/DSGVO?", "Impressum & Datenschutz werden integriert (Texte via Generator/Anwalt)."],
         ].map(([q, a], i) => (
-          <details key={i} className="border-b border-neutral-200 py-3">
+          <details key={i} className="border-b border-slate-200 py-3">
             <summary className="cursor-pointer font-medium">{q}</summary>
-            <p className="mt-2 text-neutral-700">{a}</p>
+            <p className="mt-2 text-slate-700">{a}</p>
           </details>
         ))}
       </section>
 
+      {/* QUIZ */}
+      <section id="quiz" className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-3">Finde dein Paket</h2>
+        <p className="text-slate-600 mb-6">
+          3 schnelle Schritte – am Ende schicke ich dir automatisch eine passende Empfehlung.
+        </p>
+        <Quiz />
+      </section>
+
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold">Sag kurz Hallo</h2>
-            <p className="mt-2 sm:mt-3 text-neutral-600 text-[15px]">Schick mir eine kurze Nachricht – ich melde mich schnell mit Vorschlägen.</p>
-            <div className="mt-5 space-y-2 text-sm text-neutral-700">
-              <p>📧 hello@filumedia.de</p>
-              <p>📞 +49 ••• •• ••••</p>
-              <p>📍 Passau, Bayern</p>
+            <p className="mt-2 text-slate-600">
+              Schick mir eine Nachricht – ich melde mich schnell mit Vorschlägen.
+            </p>
+            <div className="mt-4 space-y-2 text-sm text-slate-700">
+              <p className="flex items-center gap-2"><Mail className="h-4 w-4" /> {OWNER_EMAIL}</p>
+              <p className="flex items-center gap-2"><CalendarDays className="h-4 w-4" /> Termin nach Wunsch</p>
+              <p className="flex items-center gap-2"><Building2 className="h-4 w-4" /> Passau, Bayern</p>
             </div>
           </div>
-          <div className="rounded-2xl border border-neutral-200 p-6">
+
+          <div className="rounded-2xl border border-slate-200 p-6">
             <div className="font-medium mb-3">Kontaktformular</div>
-            <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); alert('Danke!'); }}>
-              <input placeholder="Dein Name" className="w-full bg-white border border-neutral-300 rounded-lg px-3 py-2" />
-              <input placeholder="E-Mail" className="w-full bg-white border border-neutral-300 rounded-lg px-3 py-2" />
-              <textarea placeholder="Kurz dein Projekt…" className="w-full bg-white border border-neutral-300 rounded-lg px-3 py-2 min-h-[120px]" />
-              <button type="submit" className="w-full rounded-xl px-4 sm:px-5 py-2 bg-charcoal text-white">Absenden</button>
+            <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); alert("Danke! Ich melde mich."); }}>
+              <input placeholder="Dein Name" className="w-full border border-slate-300 rounded-lg px-3 py-2" />
+              <input placeholder="E-Mail" className="w-full border border-slate-300 rounded-lg px-3 py-2" />
+              <textarea placeholder="Kurz dein Projekt…" className="w-full border border-slate-300 rounded-lg px-3 py-2 min-h-[120px]" />
+              <button className={`w-full rounded-xl px-4 py-2 text-white bg-${accent} hover:bg-${accentHover}`}>Absenden</button>
             </form>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10 text-sm text-neutral-600 flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-4">
           <p>© {new Date().getFullYear()} FILUMEDIA. Alle Rechte vorbehalten.</p>
           <div className="flex items-center gap-6">
-            <a className="hover:text-neutral-900" href="#">Impressum</a>
-            <a className="hover:text-neutral-900" href="#">Datenschutz</a>
+            <a className="hover:text-slate-900" href="#">Impressum</a>
+            <a className="hover:text-slate-900" href="#">Datenschutz</a>
           </div>
         </div>
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 md:hidden">
-          <a href="#contact" className="px-5 py-3 rounded-full shadow-lg border border-neutral-200" style={{ background: beige, color: charcoal }}>Termin buchen</a>
-        </div>
       </footer>
+
+      {/* Floating CTA */}
+      <a
+        href="#quiz"
+        className={`fixed right-4 bottom-4 md:right-6 md:bottom-6 px-4 py-3 rounded-full shadow-lg border border-slate-200 bg-${accent} hover:bg-${accentHover} text-white inline-flex items-center gap-2`}
+      >
+        <CalendarDays className="h-4 w-4" />
+        Termin buchen
+      </a>
+    </div>
+  );
+}
+
+/* ---------- kleine UI-Bausteine ---------- */
+
+function Card({ title, desc, points }: { title: string; desc: string; points: string[] }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-6">
+      <div className="font-semibold">{title}</div>
+      <p className="text-slate-600 text-sm mt-2">{desc}</p>
+      <ul className="mt-4 space-y-2 text-sm text-slate-800">
+        {points.map((p, i) => (
+          <li key={i} className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-slate-900" />
+            {p}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function PriceCard({ name, price, features }: { name: string; price: string; features: string[] }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 p-6">
+      <div className="flex items-center justify-between">
+        <span className="text-lg font-medium">{name}</span>
+        <span className="text-xs px-2 py-1 rounded-full border border-slate-300 bg-slate-50">Paket</span>
+      </div>
+      <div className="text-2xl font-semibold mt-2">{price}</div>
+      <ul className="mt-4 space-y-2 text-sm text-slate-800 list-disc list-inside">
+        {features.map((f, i) => <li key={i}>{f}</li>)}
+      </ul>
+      <a href="#quiz" className="mt-6 inline-block rounded-xl px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700">Passt zu mir?</a>
+    </div>
+  );
+}
+
+function ProjectGrid() {
+  const projects = useMemo(() => ([
+    { title: "Aesthetic Praxis", img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Technik & Gewerbe", img: "https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Boutique & Retail", img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Consulting", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop" },
+    { title: "Gastro", img: "https://images.unsplash.com/photo-1521017432531-fbd92d1cf05b?q=80&w=1600&auto=format&fit=crop" },
+    { title: "Immobilien", img: "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1600&auto=format&fit=crop" },
+  ]), []);
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {projects.map((p) => (
+        <div key={p.title} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+          <img src={p.img} alt={p.title} className="h-56 md:h-64 w-full object-cover transition group-hover:scale-[1.02]" />
+          <div className="absolute inset-x-0 bottom-0 p-4 flex items-center justify-between bg-gradient-to-t from-white via-white/90 to-transparent">
+            <span className="font-medium">{p.title}</span>
+            <ArrowRight className="h-5 w-5 text-slate-900" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Logo({ label }: { label: string }) {
+  return (
+    <div className="h-10 rounded-lg border border-slate-200 bg-white flex items-center justify-center text-sm text-slate-500">
+      {label}
+    </div>
+  );
+}
+
+/* ---------- QUIZ ---------- */
+
+function Quiz() {
+  type Answers = {
+    type?: "onepager" | "business" | "complex";
+    purpose?: "praxis" | "dienstleistung" | "shop" | "portfolio" | "sonstiges";
+    budget?: "<1000" | "1000-2500" | ">2500";
+    name?: string;
+    email?: string;
+    company?: string;
+  };
+
+  const [step, setStep] = useState<number>(1);
+  const [loading, setLoading] = useState(false);
+  const [ok, setOk] = useState(false);
+  const [a, setA] = useState<Answers>({});
+
+  const next = () => setStep((s) => s + 1);
+  const back = () => setStep((s) => Math.max(1, s - 1));
+
+  async function sendLead() {
+    setLoading(true);
+    const summary =
+      `Typ: ${a.type}\nZweck: ${a.purpose}\nBudget: ${a.budget}\n` +
+      `Name: ${a.name}\nE-Mail: ${a.email}\nFirma: ${a.company}`;
+
+    try {
+      if (FORMSPREE_ID) {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _subject: "Neue Quiz-Anfrage (Filumedia)",
+            _format: "json",
+            ...a,
+            summary,
+          }),
+        });
+        if (!res.ok) throw new Error("Formspree error");
+        setOk(true);
+      } else {
+        // Fallback: Mailto öffnen
+        const subject = encodeURIComponent("Neue Anfrage über das Website-Quiz");
+        const body = encodeURIComponent(summary);
+        window.location.href = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
+        setOk(true);
+      }
+    } catch {
+      alert("Konnte nicht senden – bitte schreib kurz an " + OWNER_EMAIL);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (ok) {
+    const recommendation =
+      a.type === "onepager" ? "One-Pager Essential"
+      : a.type === "business" ? "Business Website"
+      : "Individuelle Lösung";
+    return (
+      <div className="rounded-2xl border border-slate-200 p-6 bg-white">
+        <div className="text-green-700 font-medium mb-2">Danke! Anfrage ist raus ✅</div>
+        <p className="text-slate-700 text-sm">
+          Empfehlung: <strong>{recommendation}</strong>. Ich melde mich zeitnah mit Vorschlägen.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-2xl border border-slate-200 p-6 bg-white">
+      <div className="text-xs text-slate-500 mb-2">Schritt {step} von 4</div>
+
+      {step === 1 && (
+        <Step
+          title="Welche Art von Website brauchst du?"
+          options={[
+            ["onepager", "One-Pager"],
+            ["business", "Business Website"],
+            ["complex", "Komplexere Lösung"],
+          ]}
+          value={a.type}
+          onChange={(v) => setA((s) => ({ ...s, type: v as Answers["type"] }))}
+        />
+      )}
+
+      {step === 2 && (
+        <Step
+          title="Wofür ist die Seite gedacht?"
+          options={[
+            ["praxis", "Praxis / Gesundheit"],
+            ["dienstleistung", "Dienstleistung"],
+            ["shop", "Shop / E-Commerce"],
+            ["portfolio", "Portfolio"],
+            ["sonstiges", "Sonstiges"],
+          ]}
+          value={a.purpose}
+          onChange={(v) => setA((s) => ({ ...s, purpose: v as Answers["purpose"] }))}
+        />
+      )}
+
+      {step === 3 && (
+        <Step
+          title="Welcher Budget-Korridor passt?"
+          options={[
+            ["<1000", "< 1.000 €"],
+            ["1000-2500", "1.000 – 2.500 €"],
+            [">2500", "> 2.500 €"],
+          ]}
+          value={a.budget}
+          onChange={(v) => setA((s) => ({ ...s, budget: v as Answers["budget"] }))}
+        />
+      )}
+
+      {step === 4 && (
+        <div>
+          <div className="font-medium mb-2">Wie kann ich dich erreichen?</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <input
+              placeholder="Name"
+              className="border border-slate-300 rounded-lg px-3 py-2"
+              value={a.name ?? ""}
+              onChange={(e) => setA((s) => ({ ...s, name: e.target.value }))}
+            />
+            <input
+              placeholder="E-Mail"
+              className="border border-slate-300 rounded-lg px-3 py-2"
+              value={a.email ?? ""}
+              onChange={(e) => setA((s) => ({ ...s, email: e.target.value }))}
+            />
+            <input
+              placeholder="Firma (optional)"
+              className="border border-slate-300 rounded-lg px-3 py-2"
+              value={a.company ?? ""}
+              onChange={(e) => setA((s) => ({ ...s, company: e.target.value }))}
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6 flex items-center justify-between">
+        <button
+          onClick={back}
+          className="px-4 py-2 rounded-xl border border-slate-300 disabled:opacity-40"
+          disabled={step === 1}
+        >
+          Zurück
+        </button>
+
+        {step < 4 ? (
+          <button
+            onClick={next}
+            className={`px-4 py-2 rounded-xl text-white bg-${accent} hover:bg-${accentHover} disabled:opacity-40`}
+            disabled={
+              (step === 1 && !a.type) ||
+              (step === 2 && !a.purpose) ||
+              (step === 3 && !a.budget)
+            }
+          >
+            Weiter
+          </button>
+        ) : (
+          <button
+            onClick={sendLead}
+            className={`px-4 py-2 rounded-xl text-white bg-${accent} hover:bg-${accentHover} disabled:opacity-40`}
+            disabled={!a.name || !a.email || loading}
+          >
+            {loading ? "Sende…" : "Anfrage senden"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Step({
+  title,
+  options,
+  value,
+  onChange,
+}: {
+  title: string;
+  options: [string, string][];
+  value?: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div>
+      <div className="font-medium mb-3">{title}</div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {options.map(([val, label]) => {
+          const active = value === val;
+          return (
+            <button
+              key={val}
+              onClick={() => onChange(val)}
+              className={`rounded-xl px-4 py-3 border text-sm ${
+                active
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-300 hover:border-slate-400"
+              }`}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
